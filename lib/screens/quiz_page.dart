@@ -49,8 +49,8 @@ class _QuizPageState extends State<QuizPage> {
                   int totalQuestions = DummyData.pertanyaan.length;
 
                   // Pass score to the score page
-                  context.goNamed(
-                    "score",
+                  context.go(
+                    "/score",
                     extra: {
                       'score': score,
                       'total': totalQuestions,
