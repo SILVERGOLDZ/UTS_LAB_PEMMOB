@@ -23,7 +23,7 @@ GoRouter createRouter() {
       GoRoute(
         path: AppRoutes.quiz,
         name: 'quiz',
-        builder: (context, state) => const QuizPage(),
+        builder: (context, state) => QuizPage(),
       ),
 
       StatefulShellRoute.indexedStack(

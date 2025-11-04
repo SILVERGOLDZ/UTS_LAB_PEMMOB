@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
             brightness: Brightness.dark,
             colorScheme: ColorScheme.dark(),
           ),
-          themeMode: ThemeMode.dark,
+          themeMode: ThemeMode.light,
           routerConfig: createRouter(),
           debugShowCheckedModeBanner: false,
       ),

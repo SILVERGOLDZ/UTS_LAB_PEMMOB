@@ -1,35 +1,39 @@
+import 'package:anime_verse/config/routes.dart';
 import 'package:flutter/material.dart';
-import '/provider/user_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
+import '../widgets/quiz_card_widget.dart';
+import '/data/dummy.dart';
+import '/model/quiz_list.dart';
+import '/config/routes.dart';
 
-class QuizPage extends StatelessWidget{
-  const QuizPage({super.key});
+class QuizPage extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() => _QuizPageState();
+}
+
+class _QuizPageState extends State<QuizPage>{
+
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      // appBar: AppBar(title: const Text('Persistent Form')),
-      // body: Padding(
-      //   padding: const EdgeInsets.all(16.0),
-      //   child: Column(
-      //     children: [
-      //       TextField(
-      //         decoration: const InputDecoration(labelText: 'Name'),
-      //         onChanged: (value) => formData.updateName(value),
-      //         controller: TextEditingController(text: formData.name),
-      //       ),
-      //       TextField(
-      //         decoration: const InputDecoration(labelText: 'Email'),
-      //         onChanged: (value) => formData.updateEmail(value),
-      //         controller: TextEditingController(text: formData.email),
-      //       ),
-      //       const SizedBox(height: 20),
-      //       Text('Current Name: ${formData.name}'),
-      //       Text('Current Email: ${formData.email}'),
-      //     ],
-      //   ),
-      // ),
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.all(10),
+          children: [
+            for (var pertanyaans in DummyData.pertanyaan)
+              CardWidget(
+                  question: pertanyaans.soal,
+                  answer: pertanyaans.opsi,
+              ),
+            ElevatedButton(
+                onPressed: () => context.goNamed("score"),
+                child: Text("Submit"),
+            ),
+          ],
+        ),
+      ),
     );
+    throw UnimplementedError();
   }
 }
