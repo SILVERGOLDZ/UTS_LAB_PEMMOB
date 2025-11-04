@@ -1,3 +1,4 @@
+import 'package:anime_verse/config/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../widgets/quiz_card_widget.dart';
@@ -69,5 +70,6 @@ class _QuizPageState extends State<QuizPage> {
         ),
       ),
     );
+    throw UnimplementedError();
   }
 }
