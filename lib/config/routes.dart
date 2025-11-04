@@ -45,7 +45,10 @@ GoRouter createRouter() {
               GoRoute(
                 path: AppRoutes.score,
                 name: 'score',
-                builder: (context, state) => const ScorePage(),
+                builder: (context, state) {
+                  final scoreData = state.extra as Map<String, int>?;
+                  return ScorePage(scoreData: scoreData);
+                },
               ),
             ],
           ),
