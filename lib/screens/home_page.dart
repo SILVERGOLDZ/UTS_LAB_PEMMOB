@@ -1,7 +1,6 @@
 import 'package:anime_verse/provider/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '/config/routes.dart';
 import 'package:go_router/go_router.dart';
 
 class HomePage extends StatelessWidget{
@@ -33,6 +32,5 @@ class HomePage extends StatelessWidget{
         ),
       ),
     );
-    throw UnimplementedError();
   }
 }
