@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget{
             ElevatedButton(
               onPressed: () {
                 // Start the quiz
-                context.goNamed('quiz');
+                context.pushNamed('quiz');
               },
               child: const Text('Start Quiz'),
             ),

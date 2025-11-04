@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 
 import '../config/routes.dart';
@@ -29,7 +30,29 @@ class BottomNavigationShell extends StatelessWidget {
         final String currentLocation = GoRouterState.of(context).uri.path;
 
         if (currentLocation == AppRoutes.home) {
-          Navigator.of(context).pop();
+          // Show exit confirmation dialog
+          final shouldExit = await showDialog<bool>(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Exit App'),
+              content: const Text('Are you sure you want to exit?'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(false),
+                  child: const Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(true),
+                  child: const Text('Exit'),
+                ),
+              ],
+            ),
+          );
+
+          // Exit app if user confirmed
+          if (shouldExit == true) {
+            SystemNavigator.pop();
+          }
         } else {
           if (GoRouter.of(context).canPop()) {
             GoRouter.of(context).pop();
@@ -38,6 +61,7 @@ class BottomNavigationShell extends StatelessWidget {
           }
         }
       },
+
       child: SafeArea(
         top: false,
         child: Scaffold(
