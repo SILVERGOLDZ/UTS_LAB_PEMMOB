@@ -11,6 +11,9 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Provider.of<UserStateProvider>(context);
     final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenSize = (screenWidth < screenHeight ? screenWidth : screenHeight);
+
     final isDark = Provider.of<ThemeProvider>(context).isDarkMode;
 
     return Scaffold(
@@ -53,7 +56,7 @@ class HomePage extends StatelessWidget {
                   Text(
                     'Before we start, Please enter your name',
                     style: TextStyle(
-                      fontSize: screenHeight * 0.03,
+                      fontSize: screenSize * 0.03,
                       fontFamily: 'Aloevera',
                       color:
                         isDark ? Colors.white : Colors.black87,
@@ -62,19 +65,25 @@ class HomePage extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 20),
-                  TextField(
-                    decoration: const InputDecoration(
-                      labelText: 'My name is ...',
-                      labelStyle: TextStyle(
-                        color: Color(0x80484848),
+
+                  ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxWidth: screenWidth > 600 ? 550 : double.infinity,
                       ),
-                      filled: true,
-                      fillColor: Color(0xffe5e5e5),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                    child: TextField(
+                      decoration: const InputDecoration(
+                        labelText: 'My name is ...',
+                        labelStyle: TextStyle(
+                          color: Color(0x80484848),
+                        ),
+                        filled: true,
+                        fillColor: Color(0xffe5e5e5),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        ),
                       ),
+                      onChanged: user.setName,
                     ),
-                    onChanged: user.setName,
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton(

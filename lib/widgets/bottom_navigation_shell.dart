@@ -23,7 +23,6 @@ class BottomNavigationShell extends StatelessWidget {
     final currentIndex = navigationShell.currentIndex;
     final bool isMobile = screenWidth < 600;
 
-
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, _) async {
@@ -63,14 +62,22 @@ class BottomNavigationShell extends StatelessWidget {
           }
         }
       },
-
       child: SafeArea(
         top: false,
         child: Scaffold(
-          body: navigationShell,
+          body: isMobile
+              ? navigationShell
+              : Row(
+            children: [
+              // Sidebar navigation for desktop
+              _buildSidebar(context, currentIndex, screenWidth, screenHeight),
+              // Main content
+              Expanded(child: navigationShell),
+            ],
+          ),
           extendBody: true,
           bottomNavigationBar: isMobile
-          ? Container(
+              ? Container(
             decoration: const BoxDecoration(
               color: Color(0xFF702e46),
             ),
@@ -98,10 +105,111 @@ class BottomNavigationShell extends StatelessWidget {
               ],
             ),
           )
-              : null
+              : null,
         ),
       ),
+    );
+  }
 
+  Widget _buildSidebar(
+      BuildContext context,
+      int currentIndex,
+      double screenWidth,
+      double screenHeight,
+      ) {
+    return Container(
+      width: 250,
+      decoration: const BoxDecoration(
+        color: Color(0xFF702e46),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black26,
+            blurRadius: 8,
+            offset: Offset(2, 0),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          SizedBox(height: screenHeight * 0.05),
+          // App title or logo (optional)
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Text(
+              'Navigation',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          const Divider(color: Colors.white24, thickness: 1),
+          SizedBox(height: 20),
+          // Navigation items
+          _buildSidebarItem(
+            context,
+            0,
+            Icons.home_rounded,
+            'Home',
+            currentIndex,
+          ),
+          _buildSidebarItem(
+            context,
+            1,
+            Icons.grading,
+            'Score',
+            currentIndex,
+          ),
+          const Spacer(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSidebarItem(
+      BuildContext context,
+      int index,
+      IconData icon,
+      String label,
+      int currentIndex,
+      ) {
+    final isActive = index == currentIndex;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () => _onItemTapped(context, index),
+          borderRadius: BorderRadius.circular(12),
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+            decoration: BoxDecoration(
+              color: isActive ? const Color(0xffa64267) : Colors.transparent,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  icon,
+                  color: isActive ? Colors.white : Colors.grey.shade400,
+                  size: 24,
+                ),
+                const SizedBox(width: 16),
+                Text(
+                  label,
+                  style: TextStyle(
+                    color: isActive ? Colors.white : Colors.grey.shade400,
+                    fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 
@@ -125,15 +233,15 @@ class BottomNavigationShell extends StatelessWidget {
           horizontal: screenWidth * 0.045,
         ),
         decoration: BoxDecoration(
-            color: const Color(0xffa64267),
-            borderRadius: BorderRadius.circular(screenWidth * 0.06),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.3),
-                blurRadius: screenWidth * 0.02,
-                offset: Offset(0, screenHeight * 0.005),
-              ),
-            ]
+          color: const Color(0xffa64267),
+          borderRadius: BorderRadius.circular(screenWidth * 0.06),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.3),
+              blurRadius: screenWidth * 0.02,
+              offset: Offset(0, screenHeight * 0.005),
+            ),
+          ],
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -168,5 +276,4 @@ class BottomNavigationShell extends StatelessWidget {
       ),
     );
   }
-
 }
