@@ -79,8 +79,9 @@ class _QuizPageState extends State<QuizPage> {
             image: DecorationImage(
               image: AssetImage(
                 isDark
-                  ? 'assets/images/DarkBG.jpg'   // dark mode background
-                  : 'assets/images/SoothingBG.jpg',),
+                    ? 'assets/images/DarkBG.jpg' // dark mode background
+                    : 'assets/images/SoothingBG.jpg',
+              ),
               fit: BoxFit.cover,
               opacity: 0.7,
             ),
@@ -157,8 +158,7 @@ class _QuizPageState extends State<QuizPage> {
                         onPressed: previousQuestion,
                         child: const Text('Previous'),
                       ),
-                      if (currentQuestionIndex <
-                          questions.length - 1)
+                      if (currentQuestionIndex < questions.length - 1)
                         ElevatedButton(
                           onPressed: nextQuestion,
                           child: const Text('Next'),
@@ -166,26 +166,17 @@ class _QuizPageState extends State<QuizPage> {
                       else
                         ElevatedButton(
                           onPressed: () {
-                            if (selectedAnswers.length == questions.length) {
-                              int score = calculateScore();
-                              int totalQuestions = questions.length;
+                            int score = calculateScore();
+                            int totalQuestions = questions.length;
 
-                              context.go(
-                                "/score",
-                                extra: {
-                                  'score': score,
-                                  'total': totalQuestions,
-                                  'answers': selectedAnswers,
-                                },
-                              );
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text(
-                                      'Please answer all questions before submitting!'),
-                                ),
-                              );
-                            }
+                            context.go(
+                              "/score",
+                              extra: {
+                                'score': score,
+                                'total': totalQuestions,
+                                'answers': selectedAnswers,
+                              },
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.greenAccent,

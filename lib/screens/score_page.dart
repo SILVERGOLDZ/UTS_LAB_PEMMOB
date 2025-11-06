@@ -88,9 +88,10 @@ class _ScorePageState extends State<ScorePage> {
           image: DecorationImage(
             image: AssetImage(
               isDark
-                ? 'assets/images/DarkBG.jpg'   // dark mode background
-                : 'assets/images/Soothing'
-                  'BG.jpg',),
+                  ? 'assets/images/DarkBG.jpg' // dark mode background
+                  : 'assets/images/Soothing'
+                  'BG.jpg',
+            ),
             fit: BoxFit.cover,
             opacity: 0.7,
           ),
@@ -102,7 +103,7 @@ class _ScorePageState extends State<ScorePage> {
               Center(
                 child: Column(
                   children: [
-                    SizedBox(height: screenHeight *0.4),
+                    SizedBox(height: screenHeight * 0.4),
                     Text(
                       user.name,
                       style: const TextStyle(
@@ -123,14 +124,32 @@ class _ScorePageState extends State<ScorePage> {
                   ],
                 ),
               ),
-              // show results each question
-              for (var i = 0; i < DummyData.pertanyaan.length; i++)
-                _buildResultCard(
-                  DummyData.pertanyaan[i].soal,
-                  DummyData.pertanyaan[i].opsi,
-                  DummyData.pertanyaan[i].correctAnswerIndex,
-                  selectedAnswers[i],
-                ),
+              // Separate wrong and correct answers
+              ...() {
+                List<Widget> wrongAnswers = [];
+                List<Widget> correctAnswers = [];
+
+                for (var i = 0; i < DummyData.pertanyaan.length; i++) {
+                  bool isCorrect = selectedAnswers[i] ==
+                      DummyData.pertanyaan[i].correctAnswerIndex;
+
+                  Widget card = _buildResultCard(
+                    DummyData.pertanyaan[i].soal,
+                    DummyData.pertanyaan[i].opsi,
+                    DummyData.pertanyaan[i].correctAnswerIndex,
+                    selectedAnswers[i],
+                  );
+
+                  if (isCorrect) {
+                    correctAnswers.add(card);
+                  } else {
+                    wrongAnswers.add(card);
+                  }
+                }
+
+                // Show wrong answers first, then correct answers
+                return [...wrongAnswers, ...correctAnswers];
+              }(),
             ],
           ),
         ),
@@ -138,13 +157,12 @@ class _ScorePageState extends State<ScorePage> {
     );
   }
 
-  Widget _buildResultCard(
-      String question, List<String> answers, int correctIndex, int? selectedIndex) {
-    bool isCorrect = selectedIndex == correctIndex;
+  Widget _buildResultCard(String question, List<String> answers,
+      int correctIndex, int? selectedIndex) {
+    // Treat unanswered (null) as incorrect
+    bool isCorrect = selectedIndex != null && selectedIndex == correctIndex;
 
-
-    final Color baseColor =
-    isCorrect ? Colors.greenAccent : Colors.redAccent;
+    final Color baseColor = isCorrect ? Colors.greenAccent : Colors.redAccent;
 
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
@@ -191,7 +209,8 @@ class _ScorePageState extends State<ScorePage> {
                         ),
                         child: Text(
                           answers[j],
-                          style: const TextStyle(color: Colors.white, fontSize: 16),
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 16),
                         ),
                       ),
                   ],

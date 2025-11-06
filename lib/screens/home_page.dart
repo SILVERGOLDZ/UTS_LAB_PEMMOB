@@ -56,7 +56,7 @@ class HomePage extends StatelessWidget {
                   Text(
                     'Before we start, Please enter your name',
                     style: TextStyle(
-                      fontSize: screenSize * 0.03,
+                      fontSize: screenSize * 0.05,
                       fontFamily: 'Aloevera',
                       color:
                         isDark ? Colors.white : Colors.black87,
@@ -71,13 +71,13 @@ class HomePage extends StatelessWidget {
                         maxWidth: screenWidth > 600 ? 550 : double.infinity,
                       ),
                     child: TextField(
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         labelText: 'My name is ...',
                         labelStyle: TextStyle(
-                          color: Color(0x80484848),
+                          color: isDark? Color(0x80E3E3E3) : Color(0x80484848),
                         ),
                         filled: true,
-                        fillColor: Color(0xffe5e5e5),
+                        fillColor: isDark ? Colors.black : const Color(0xffffffff),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                         ),
@@ -87,6 +87,9 @@ class HomePage extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: isDark ? Color(0xFF444444) : Colors.white,
+                    ),
                     onPressed: () {
                       context.pushNamed('quiz');
                     },
