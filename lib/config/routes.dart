@@ -46,7 +46,7 @@ GoRouter createRouter() {
                 path: AppRoutes.score,
                 name: 'score',
                 builder: (context, state) {
-                  final scoreData = state.extra as Map<String, int>?;
+                  final scoreData = state.extra as Map<String, dynamic>?;
                   return ScorePage(scoreData: scoreData);
                 },
               ),

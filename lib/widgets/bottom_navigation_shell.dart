@@ -21,6 +21,8 @@ class BottomNavigationShell extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     final currentIndex = navigationShell.currentIndex;
+    final bool isMobile = screenWidth < 600;
+
 
     return PopScope(
       canPop: false,
@@ -67,7 +69,8 @@ class BottomNavigationShell extends StatelessWidget {
         child: Scaffold(
           body: navigationShell,
           extendBody: true,
-          bottomNavigationBar: Container(
+          bottomNavigationBar: isMobile
+          ? Container(
             decoration: const BoxDecoration(
               color: Color(0xFF702e46),
             ),
@@ -94,7 +97,8 @@ class BottomNavigationShell extends StatelessWidget {
                 ),
               ],
             ),
-          ),
+          )
+              : null
         ),
       ),
 
