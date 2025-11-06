@@ -22,5 +22,50 @@ class DummyData{
         opsi: ["A", "B", "C", "D"],
       correctAnswerIndex: 2,
     ),
+    const QuizList(
+      soal: '\ttes4',
+      opsi: ["A", "B", "C", "D"],
+      correctAnswerIndex: 2,
+    ),
+    const QuizList(
+      soal: '\ttes4',
+      opsi: ["A", "B", "C", "D"],
+      correctAnswerIndex: 2,
+    ),
+    const QuizList(
+      soal: '\ttes4',
+      opsi: ["A", "B", "C", "D"],
+      correctAnswerIndex: 2,
+    ),
+    const QuizList(
+      soal: '\ttes4',
+      opsi: ["A", "B", "C", "D"],
+      correctAnswerIndex: 2,
+    ),
+    const QuizList(
+      soal: '\ttes4',
+      opsi: ["A", "B", "C", "D"],
+      correctAnswerIndex: 2,
+    ),
+    const QuizList(
+      soal: '\ttes4',
+      opsi: ["A", "B", "C", "D"],
+      correctAnswerIndex: 2,
+    ),
+    const QuizList(
+      soal: '\ttes4',
+      opsi: ["A", "B", "C", "D"],
+      correctAnswerIndex: 2,
+    ),
+    const QuizList(
+      soal: '\ttes4',
+      opsi: ["A", "B", "C", "D"],
+      correctAnswerIndex: 2,
+    ),
+    const QuizList(
+      soal: '\ttes4',
+      opsi: ["A", "B", "C", "D"],
+      correctAnswerIndex: 2,
+    ),
   ];
 }

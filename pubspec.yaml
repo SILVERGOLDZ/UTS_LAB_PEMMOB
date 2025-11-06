@@ -20,16 +20,30 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
 
 flutter:
 
   uses-material-design: true
 
-#  assets:
-#    - assets/images/
-#
+  assets:
+    - assets/images/LightTheme.jpg
+    - assets/images/SoothingBG.jpg
+    - assets/images/DarkBG.jpg
+
   fonts:
+    - family: Aloevera
+      fonts:
+        - asset: assets/fonts/aloevera-font/Aloevera-OVoWO.ttf
+
+    - family: Plaza
+      fonts:
+        - asset: assets/fonts/plaza-font/PlazapersonaluseBold-d91XR.otf
+
+    - family: BrownieStencil
+      fonts:
+        - asset: assets/fonts/brownie-stencil-font/BrownieStencil-8O8MJ.ttf
+
     - family: Urbanist
       fonts:
         - asset: assets/fonts/Urbanist-Regular.ttf
