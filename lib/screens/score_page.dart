@@ -21,6 +21,8 @@ class _ScorePageState extends State<ScorePage> {
     final user = Provider.of<UserStateProvider>(context);
 
     final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenSize = (screenWidth < screenHeight ? screenWidth : screenHeight);
 
     if (widget.scoreData == null) {
       return Scaffold(
@@ -36,25 +38,25 @@ class _ScorePageState extends State<ScorePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(
+                Icon(
                   Icons.warning_amber_rounded,
-                  size: 80,
+                  size: screenSize * 0.2,
                   color: Colors.orange,
                 ),
                 const SizedBox(height: 20),
-                const Text(
+                Text(
                   'No quiz results available',
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: screenSize * 0.05,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
                 ),
                 const SizedBox(height: 10),
-                const Text(
+                Text(
                   'Please complete the quiz first',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: screenSize * 0.03,
                     color: Colors.white70,
                   ),
                 ),
