@@ -4,8 +4,27 @@ import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import '../provider/theme_provider.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage>{
+  late TextEditingController _nameController;
+
+  @override
+  void initState() {
+    super.initState();
+    final user = Provider.of<UserStateProvider>(context, listen: false);
+    _nameController = TextEditingController(text: user.name);
+  }
+  @override
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +90,7 @@ class HomePage extends StatelessWidget {
                         maxWidth: screenWidth > 600 ? 550 : double.infinity,
                       ),
                     child: TextField(
+                      controller: _nameController,
                       decoration: InputDecoration(
                         labelText: 'My name is ...',
                         labelStyle: TextStyle(
@@ -91,6 +111,12 @@ class HomePage extends StatelessWidget {
                       backgroundColor: isDark ? Color(0xFF444444) : Colors.white,
                     ),
                     onPressed: () {
+                      if (_nameController.text.trim().isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("Please enter your name first.")),
+                        );
+                        return;
+                      }
                       context.pushNamed('quiz');
                     },
                     child: const Text('I am Ready!'),
