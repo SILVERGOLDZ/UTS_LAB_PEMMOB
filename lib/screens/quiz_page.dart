@@ -2,6 +2,7 @@ import 'package:anime_verse/config/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import '../provider/quiz_provider.dart';
 import '../provider/theme_provider.dart';
 import '../widgets/quiz_card_widget.dart';
 import '/data/dummy.dart';
@@ -169,14 +170,12 @@ class _QuizPageState extends State<QuizPage> {
                             int score = calculateScore();
                             int totalQuestions = questions.length;
 
-                            context.go(
-                              "/score",
-                              extra: {
-                                'score': score,
-                                'total': totalQuestions,
-                                'answers': selectedAnswers,
-                              },
-                            );
+                            Provider.of<QuizProvider>(context, listen: false).setScoreData({
+                              'score': score,
+                              'total': totalQuestions,
+                              'answers': selectedAnswers,
+                            });
+                            context.go('/score');
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.greenAccent,

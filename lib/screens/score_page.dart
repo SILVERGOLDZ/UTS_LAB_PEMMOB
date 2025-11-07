@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import '../provider/quiz_provider.dart';
 import '../provider/theme_provider.dart';
 import '../provider/user_provider.dart';
 import '/data/dummy.dart';
@@ -19,12 +20,15 @@ class _ScorePageState extends State<ScorePage> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserStateProvider>(context);
+    final quizProvider = Provider.of<QuizProvider>(context);
 
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     final screenSize = (screenWidth < screenHeight ? screenWidth : screenHeight);
 
-    if (widget.scoreData == null) {
+    final scoreData = widget.scoreData ?? quizProvider.scoreData;
+
+    if (scoreData == null) {
       return Scaffold(
         body: Container(
           decoration: const BoxDecoration(
@@ -75,10 +79,10 @@ class _ScorePageState extends State<ScorePage> {
       );
     }
 
-    final int score = widget.scoreData!['score'] ?? 0;
-    final int total = widget.scoreData!['total'] ?? 0;
+    final int score = scoreData!['score'] ?? 0;
+    final int total = scoreData!['total'] ?? 0;
     final Map<int, int> selectedAnswers =
-    Map<int, int>.from(widget.scoreData!['answers'] ?? {});
+    Map<int, int>.from(scoreData['answers'] ?? {});
 
     final isDark = Provider.of<ThemeProvider>(context).isDarkMode;
 
